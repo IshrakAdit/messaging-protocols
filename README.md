@@ -10,10 +10,10 @@ These were implemented by the developer for practicing, comparing, and understan
 
 ### Completed
 
-| Repository | Protocol                 | Protocol Layer     | Main Working Technique                | Tech Stack                    |
-| ---------- | ------------------------ | ------------------ | ------------------------------------- | ----------------------------- |
-| `sse`      | Server-Sent Events       | Application (HTTP) | Unidirectional event streaming        | Spring boot, React            |
-| `mqtt-web` | MQTT underneat WebSocket | Transport (WS)     | MQTT messaging tunneled underneath WS | Mosquitto, Spring boot, React |
+| Repository | Protocol                  | Protocol Layer     | Main Working Technique                | Tech Stack                    |
+| ---------- | ------------------------- | ------------------ | ------------------------------------- | ----------------------------- |
+| `sse`      | Server-Sent Events        | Application (HTTP) | Unidirectional event streaming        | Spring boot, React            |
+| `mqtt-web` | MQTT underneath WebSocket | Transport (WS)     | MQTT messaging tunneled underneath WS | Mosquitto, Spring boot, React |
 
 ### Under Development
 
