@@ -1,3 +1,6 @@
 [submodule "sse"]
 	path = sse
 	url = https://github.com/IshrakAdit/sse.git
+[submodule "mqtt"]
+	path = mqtt
+	url = https://github.com/IshrakAdit/mqtt.git
