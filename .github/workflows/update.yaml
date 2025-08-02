@@ -1,0 +1,46 @@
+name: Sync submodules
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repo with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Pull latest in submodules and commit updates
+        run: |
+          for submodule in sse mqtt-web; do
+            echo "Checking for updates in $submodule..."
+            cd $submodule
+            git checkout main
+            git pull origin main
+            cd - > /dev/null
+
+            # Checking if the submodule pointer changed
+            if ! git diff --quiet $submodule; then
+              echo "Submodule $submodule updated, committing..."
+              git add $submodule
+              git commit -m "chore: update $submodule submodule to latest main"
+            else
+              echo "No changes in $submodule"
+            fi
+          done
+
+      - name: Push to main
+        run: git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
