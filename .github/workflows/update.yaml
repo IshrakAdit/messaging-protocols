@@ -24,22 +24,22 @@ jobs:
 
       - name: Pull latest in submodules and commit updates
         run: |
+
+          git submodule update --init --recursive $submodule
+
           for submodule in sse mqtt-web; do
             echo "Processing submodule: $submodule"
 
-            # Save old SHA (from the perspective of the parent repo)
-            old_sha=$(git rev-parse HEAD:$submodule)
-
-            git submodule update --init --recursive $submodule
-
             cd $submodule
+
+            old_sha=$(git rev-parse HEAD)
 
             git checkout main
             git pull origin main
 
-            cd - > /dev/null
+            new_sha=$(git rev-parse HEAD)
 
-            new_sha=$(git rev-parse HEAD:$submodule)
+            cd - > /dev/null
 
             if [ "$old_sha" != "$new_sha" ]; then
               echo "Submodule $submodule updated."
