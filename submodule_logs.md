@@ -13,6 +13,11 @@ Steps to be followed -
 
 ```bash
 git pull origin main
+```
+
+Make changes to this log. Then -
+
+```bash
 git add .
 git commit -m "your message"
 git push
