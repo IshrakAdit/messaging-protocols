@@ -25,25 +25,29 @@ jobs:
       - name: Pull latest in submodules and commit updates
         run: |
           for submodule in sse mqtt-web; do
-            echo "Checking for updates in $submodule..."
+            echo "Processing submodule: $submodule"
 
-            # Save current SHA
-            old_sha=$(git rev-parse $submodule)
+            # Save old SHA (from the perspective of the parent repo)
+            old_sha=$(git rev-parse HEAD:$submodule)
+
+            git submodule update --init --recursive $submodule
 
             cd $submodule
+
+            git fetch origin main
             git checkout main
-            git pull origin main
+            git reset --hard origin/main
+
             cd - > /dev/null
 
-            # Save new SHA
-            new_sha=$(git rev-parse $submodule)
+            new_sha=$(git rev-parse HEAD:$submodule)
 
             if [ "$old_sha" != "$new_sha" ]; then
-              echo "Submodule $submodule updated. Committing change."
+              echo "Submodule $submodule updated."
               git add $submodule
               git commit -m "chore: update $submodule submodule to latest main [skip-submodule-sync]"
             else
-              echo "No update in $submodule"
+              echo "No changes in $submodule"
             fi
           done
 
