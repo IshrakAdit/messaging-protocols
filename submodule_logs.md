@@ -7,6 +7,22 @@ Submodule changes are automatically pulled and committed when the changes in thi
 
 ---
 
+## Triggering GitHub Actions
+
+Steps are to be followed -
+
+```bash
+
+git pull origin main
+git add .
+git commit -m "your message"
+git push
+```
+
+This ensures the latest submodule references are committed and workflows are executed accordingly.
+
+---
+
 ## August 01, 2025
 
 - **sse**: added as new submodule
