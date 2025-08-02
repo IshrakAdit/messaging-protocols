@@ -7,6 +7,7 @@ on:
 
 jobs:
   sync-submodules:
+    if: "!contains(github.event.head_commit.message, '[skip-submodule-sync]')"
     runs-on: ubuntu-latest
 
     steps:
@@ -14,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
 
       - name: Configure Git
         run: |
@@ -30,17 +31,16 @@ jobs:
             git pull origin main
             cd - > /dev/null
 
-            # Checking if the submodule pointer changed
             if ! git diff --quiet $submodule; then
-              echo "Submodule $submodule updated, committing..."
+              echo "Submodule $submodule updated. Committing change."
               git add $submodule
-              git commit -m "chore: update $submodule submodule to latest main"
+              git commit -m "chore: update $submodule submodule to latest main [skip-submodule-sync]"
             else
-              echo "No changes in $submodule"
+              echo "No update in $submodule"
             fi
           done
 
-      - name: Push to main
-        run: git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push updates back to main
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
+          git push origin main
