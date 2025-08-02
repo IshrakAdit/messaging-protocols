@@ -9,10 +9,9 @@ Submodule changes are automatically pulled and committed when the changes in thi
 
 ## Triggering GitHub Actions
 
-Steps are to be followed -
+Steps to be followed -
 
 ```bash
-
 git pull origin main
 git add .
 git commit -m "your message"
