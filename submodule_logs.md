@@ -1,7 +1,9 @@
 # Submodule Logs
 
-This log documents all changes made to submodules in the repository.  
-It is also used for triggering GitHub Actions workflows when submodule updates are made.
+This log documents all changes made to submodules in the repository.
+
+This also triggers workflows on submodule updates.  
+Submodule changes are automatically pulled and committed when the changes in this log are pushed.
 
 ---
 
@@ -9,8 +11,6 @@ It is also used for triggering GitHub Actions workflows when submodule updates a
 
 - **sse**: added as new submodule
 - **mqtt-web**: added as new submodule
-
----
 
 ## August 02, 2025
 
