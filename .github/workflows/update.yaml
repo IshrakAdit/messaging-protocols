@@ -26,12 +26,19 @@ jobs:
         run: |
           for submodule in sse mqtt-web; do
             echo "Checking for updates in $submodule..."
+
+            # Save current SHA
+            old_sha=$(git rev-parse $submodule)
+
             cd $submodule
             git checkout main
             git pull origin main
             cd - > /dev/null
 
-            if ! git diff --quiet $submodule; then
+            # Save new SHA
+            new_sha=$(git rev-parse $submodule)
+
+            if [ "$old_sha" != "$new_sha" ]; then
               echo "Submodule $submodule updated. Committing change."
               git add $submodule
               git commit -m "chore: update $submodule submodule to latest main [skip-submodule-sync]"
