@@ -29,5 +29,7 @@ This ensures the latest submodule references are committed and workflows are exe
 
 ## August 02, 2025
 
-- **sse**: updated run tutorial
+- **sse**:
+  - updated run tutorial
+  - updated feature doc
 - **mqtt-web**: updated run tutorial
