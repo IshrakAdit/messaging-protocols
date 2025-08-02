@@ -34,9 +34,8 @@ jobs:
 
             cd $submodule
 
-            git fetch origin main
             git checkout main
-            git reset --hard origin/main
+            git pull origin main
 
             cd - > /dev/null
 
